@@ -1,4 +1,4 @@
-const {GENESIS_DATA} = require('./config');
+const {GENESIS_DATA, MINE_RATE} = require('./config');
 const cryptoHash = require('./crypto-hash');
 
 class Block{
@@ -36,6 +36,14 @@ class Block{
       hash
     });
   };
+
+  static adjustDifficulty({originalBlock, timestamp}){
+    const { difficulty } = originalBlock;
+
+    if (timestamp - originalBlock.timestamp > MINE_RATE) return difficulty - 1;
+
+    return difficulty + 1;
+  }
 };
 
 module.exports = Block;
