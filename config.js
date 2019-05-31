@@ -13,4 +13,12 @@ const GENESIS_DATA = {
     data: []
 };
 
-module.exports = { GENESIS_DATA, MINE_RATE, DEFAULT_PORT, HOSTNAME }
+const STARTING_BALANCE = 1000;
+
+module.exports = { 
+    GENESIS_DATA, 
+    MINE_RATE, 
+    DEFAULT_PORT, 
+    HOSTNAME, 
+    STARTING_BALANCE 
+};
