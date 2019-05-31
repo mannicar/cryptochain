@@ -1,7 +1,7 @@
 const INITIAL_DIFFICULTY = 3;
 const MINE_RATE = 1000; // set in milliseconds - 1s.
 
-const PORT = 3000
+const DEFAULT_PORT = 3000
 const HOSTNAME = 'localhost'
 
 const GENESIS_DATA = {
@@ -13,4 +13,4 @@ const GENESIS_DATA = {
     data: []
 };
 
-module.exports = { GENESIS_DATA, MINE_RATE, PORT, HOSTNAME }
+module.exports = { GENESIS_DATA, MINE_RATE, DEFAULT_PORT, HOSTNAME }
