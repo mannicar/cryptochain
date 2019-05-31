@@ -11,7 +11,7 @@ describe('Transaction',() => {
         transaction = new Transaction({senderWallet, recipient, amount});
     })
 
-    if('has an `id`', () => {
+    it('has an `id`', () => {
         expect(transaction).toHaveProperty('id');
     });
 
