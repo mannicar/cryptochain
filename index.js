@@ -20,6 +20,7 @@ const transactionMiner = new TransactionMiner({blockchain, transactionPool, wall
 const ROOT_NODE_ADDRESS = `http://${HOSTNAME}:${DEFAULT_PORT}`
 
 app.use(bodyParser.json());
+app.use(express.static(Path.join(__dirname, 'client')));
 
 // Define endpoints
 app.get('/api/blocks', (req, res) => {
