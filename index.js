@@ -8,6 +8,7 @@ const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet')
 const TransactionMiner = require('./app/transaction-miner');
 const {DEFAULT_PORT, HOSTNAME} = require('./config');
+const Path = require('path');
 
 const app = express();
 const blockchain = new Blockchain();
@@ -73,6 +74,10 @@ app.get('/api/wallet-info', (req, res) => {
         address,
         balance: Wallet.calculateBalance({chain: blockchain, address})
     });
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(Path.join(__dirname, 'client/index.html'));
 });
 
 // Initialize server
