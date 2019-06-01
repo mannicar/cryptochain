@@ -143,6 +143,16 @@ describe('Blockchain', () => {
                 });
             });
         });
+
+        describe('and the `validateTransactionsData` flag is true', () => {
+            it ('calls validTransactionsData()', () => {
+                const validTransactionDataMock = jest.fn();
+                blockchain.validTransactionData = validTransactionDataMock;
+                newChain.addBlock({data:'foo'});
+                blockchain.replaceChain(newChain.chain, true);
+                expect(validTransactionDataMock).toHaveBeenCalled();
+            })
+        });
     });
 
     describe('validTransactionData()', () => {
@@ -193,13 +203,31 @@ describe('Blockchain', () => {
 
         describe('and the transaction data has at least on malformed input', ()=> {
             it('returns false and logs an error',()=> {
-
+                wallet.balance = 9000;
+                const evilOutputMap = {
+                    [wallet.publicKey] : 8900,
+                    fooRecipient: 100
+                };
+                const evilTransaction = {
+                    input: {
+                        timestamp: Date.now(),
+                        amount: wallet.balance,
+                        address: wallet.publicKey,
+                        signature: wallet.sign(evilOutputMap)
+                    },
+                    outputMap: evilOutputMap
+                };
+                newChain.addBlock({data: [evilTransaction, rewardTransaction]});
+                expect(blockchain.validTransactionData({chain: newChain.chain})).toBe(false);
+                expect(errorMock).toHaveBeenCalled();
             });
         });
 
         describe('and a block contains multiple identical transactions', () => {
             it('returns false and logs an error',()=> {
-
+                newChain.addBlock({data: [transaction, transaction, transaction]});
+                expect(blockchain.validTransactionData({chain: newChain.chain})).toBe(false);
+                expect(errorMock).toHaveBeenCalled();
             });
         });
     });
