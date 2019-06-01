@@ -86,6 +86,7 @@ const syncWithRootState = () => {
         });
 };
 
+// Boostrap and deploy
 let PEER_PORT;
 
 if (process.env.GENERATE_PEER_PORT === 'true') {
