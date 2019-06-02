@@ -16,7 +16,7 @@ class Blocks extends Component {
                 <h3>Blocks</h3>
                 {
                     this.state.blocks.map(block => {
-                        return <div key={block.hash}>{block.hash}</div>
+                        return <div key={block.hash} className='Block'>{block.hash}</div>
                     })
                 }
             </div>
