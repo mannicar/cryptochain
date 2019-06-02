@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Blocks from './Blocks';
-import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 class App extends Component {
     state = { walletInfo: {}}; // class property syntax of Javascript
@@ -17,14 +17,15 @@ class App extends Component {
             <div className='App'>
                 <img className='logo' src={logo}></img>
                 <br/>
-                <div>Welcome to the Blockchain... .. ..  .  .   .</div>
+                <div>Welcome to the Blockchain!</div>
+                <br/>
+                <div><Link to='/blocks'>Blocks</Link></div>
+                <div><Link to='/conduct-transaction'>Conduct a Transaction</Link></div>
                 <br/>
                 <div className='WalletInfo'>
                     <div>Address: {address}</div>
                     <div>Balance: {balance}</div>
                 </div>
-                <br />
-                <Blocks />
             </div>
         );
     };
