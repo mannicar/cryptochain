@@ -32,6 +32,23 @@ app.get('/api/blocks', (req, res) => {
     res.json(blockchain.chain);
 });
 
+app.get('/api/blocks/length', (req, res) => {
+    res.json(blockchain.chain.length);
+});
+
+app.get('/api/blocks/:id', (req, res) => {
+    const { id } = req.params;
+    const { length } = blockchain.chain
+    
+    const blocksReversed = blockchain.chain.slice().reverse();
+
+    const startIndex = (id-1) * 5 < length ? (id-1) * 5 : length;
+    const endIndex = id * 5 < length ? id * 5 : length;
+
+    res.json(blocksReversed.slice(startIndex, endIndex));
+
+});
+
 app.post('/api/mine', (req, res) => {
     const {data} = req.body;
     blockchain.addBlock({ data });
@@ -150,7 +167,7 @@ if (isDevelopment) {
         wallet: walletBar, recipient: wallet.publicKey, amount: 15
     });
 
-    for (let i=0; i<10; i++) {
+    for (let i=0; i<20; i++) {
         if (i % 3 === 0) {
             walletAction();
             walletFooAction();
